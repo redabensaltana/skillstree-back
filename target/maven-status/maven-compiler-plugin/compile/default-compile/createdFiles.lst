@@ -1,0 +1,17 @@
+com\redabens\skillstree\util\Exception.class
+com\redabens\skillstree\entity\ReferentialStudentCompetencePK.class
+com\redabens\skillstree\config\EntityManagerConfig.class
+com\redabens\skillstree\dao\BaseDAOImpl.class
+com\redabens\skillstree\entity\Competence.class
+com\redabens\skillstree\service\AuthService.class
+com\redabens\skillstree\util\Level.class
+com\redabens\skillstree\controller\AuthController.class
+com\redabens\skillstree\entity\Student.class
+com\redabens\skillstree\entity\Teacher.class
+com\redabens\skillstree\entity\ReferentialStudent.class
+com\redabens\skillstree\entity\User.class
+com\redabens\skillstree\test.class
+com\redabens\skillstree\entity\Referential.class
+com\redabens\skillstree\dao\interfaces\BaseDAO.class
+com\redabens\skillstree\controller\AuthController$Data.class
+com\redabens\skillstree\util\SoutError.class
