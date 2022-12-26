@@ -2,15 +2,15 @@ package com.redabens.skillstree.service;
 
 import com.redabens.skillstree.dao.BaseDAOImpl;
 import com.redabens.skillstree.entity.Student;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.redabens.skillstree.entity.Teacher;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 @Service
 public class AuthService {
-
     private BaseDAOImpl<Student> studentBaseDAO = new BaseDAOImpl<>(Student.class);
+    private BaseDAOImpl<Teacher> teacherBaseDAO = new BaseDAOImpl<>(Teacher.class);
     public Student checkStudentExists(String email,String password)
     {
         List<Student> student = studentBaseDAO.getAllWhere("email",email);
@@ -23,5 +23,17 @@ public class AuthService {
         }
         return null;
     }
-//    Student student = baseDAO.getAllWhere("email", ");
+
+    public Teacher checkTeacherExists(String email,String password)
+    {
+        List<Teacher> teacher = teacherBaseDAO.getAllWhere("email",email);
+        if (teacher.size() > 0)
+        {
+            if (teacher.get(0).getPassword().equals(password))
+            {
+                return teacher.get(0);
+            }
+        }
+        return null;
+    }
 }

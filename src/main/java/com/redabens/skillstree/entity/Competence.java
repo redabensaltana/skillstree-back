@@ -48,6 +48,14 @@ public class Competence {
         return description;
     }
 
+    public Long getIdReferential() {
+        return idReferential;
+    }
+
+    public void setIdReferential(Long idReferential) {
+        this.idReferential = idReferential;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }

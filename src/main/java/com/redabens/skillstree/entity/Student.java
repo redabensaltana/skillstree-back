@@ -7,7 +7,7 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "student", catalog = "skillstree")
-public class    Student extends User{
+public class Student extends User{
 
     @Basic
     @Column(name = "promo" , nullable = false)

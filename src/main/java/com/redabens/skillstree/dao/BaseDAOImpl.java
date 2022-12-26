@@ -34,8 +34,6 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
             em.getTransaction().rollback(); // rollback transaction
             SoutError.print("yellow", e.getMessage());
             return false;
-        }finally {
-            em.close(); // close entityManager
         }
     }
 
@@ -52,8 +50,6 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
             em.getTransaction().rollback(); // rollback transaction
             SoutError.print("yellow", e.getMessage());
             return false;
-        }finally {
-            em.close(); // close entityManager
         }
     }
 
@@ -61,17 +57,15 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
     public T findById(int id) {
         EntityManager em = EntityManagerConfig.getEntityManager();
         try {
-            em.getTransaction().begin(); // begin transaction
+//            em.getTransaction().begin(); // begin transaction
             T obj = em.find(clazz, id); // T find(Class<T> entityClass, Object primaryKey) – Returns entity for the given primary key.
-            em.getTransaction().commit(); // commit transaction
+//            em.getTransaction().commit(); // commit transaction
             return obj;
         }catch (Exception e)
         {
-            em.getTransaction().rollback(); // rollback transaction
+//            em.getTransaction().rollback(); // rollback transaction
             SoutError.print("yellow", e.getMessage());
             return null;
-        }finally {
-            em.close(); // close entityManager
         }
     }
 
@@ -79,22 +73,20 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
     public boolean delete(int id) {
         EntityManager em = EntityManagerConfig.getEntityManager();
         try {
-            em.getTransaction().begin(); // begin transaction
+//            em.getTransaction().begin(); // begin transaction
             T obj = findById(id);
             if(obj != null)
             {
                 T a = em.merge(obj);
-                em.remove(a); // The remove() to delete the particular record.
+//                em.remove(a); // The remove() to delete the particular record.
             }
             em.getTransaction().commit(); // commit transaction
             return true;
         }catch (Exception e)
         {
-            em.getTransaction().rollback(); // rollback transaction
+//            em.getTransaction().rollback(); // rollback transaction
             SoutError.print("yellow", e.getMessage());
             return false;
-        }finally {
-            em.close(); // close entityManager
         }
     }
 
@@ -102,19 +94,17 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
     public List<T> getAll() {
         EntityManager em = EntityManagerConfig.getEntityManager();
         try {
-            em.getTransaction().begin(); // begin transaction
+//            em.getTransaction().begin(); // begin transaction
             Query query = em.createQuery("select t from "+ clazz.getSimpleName() +" t");
             List<T> list = query.getResultList();
 
-            em.getTransaction().commit(); // commit transaction
+//            em.getTransaction().commit(); // commit transaction
             return list;
         }catch (Exception e)
         {
-            em.getTransaction().rollback(); // rollback transaction
+//            em.getTransaction().rollback(); // rollback transaction
             SoutError.print("yellow", e.getMessage());
             return null;
-        }finally {
-            em.close(); // close entityManager
         }
     }
 
@@ -135,8 +125,6 @@ public class BaseDAOImpl<T> implements BaseDAO<T> {
           //  em.getTransaction().rollback(); // rollback transaction
             SoutError.print("yellow", e.getMessage());
             return null;
-        }finally {
-            em.close(); // close entityManager
         }
     }
 

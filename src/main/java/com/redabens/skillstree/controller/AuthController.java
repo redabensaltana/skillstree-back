@@ -1,12 +1,10 @@
 package com.redabens.skillstree.controller;
 
-//import org.springframework.stereotype.Controller;
-import com.redabens.skillstree.dao.BaseDAOImpl;
 import com.redabens.skillstree.entity.Student;
+import com.redabens.skillstree.entity.Teacher;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.*;
 import com.redabens.skillstree.service.AuthService;
 import com.google.gson.Gson;
@@ -38,16 +36,23 @@ public class AuthController {
         return ResponseEntity.ok(gson.toJson(map));
     }
 
-//    @GetMapping
-//    public ResponseEntity<String> getwalo()
-//    {
-//        return ResponseEntity.ok("walo");
-//    }
+    @PostMapping(value = "/checkTeacherExists", consumes= MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<String> checkTeacherExists(@RequestBody Teacher data)
+    {
+        Gson gson = new Gson();
+        HashMap<String, String> map = new HashMap<>();
+        Teacher teacher = authService.checkTeacherExists(data.getEmail(), data.getPassword());
+        if (teacher != null)
+        {
+            map.put("id", String.valueOf(teacher.getId()));
+            map.put("name", teacher.getFirstname() + " " + teacher.getLastname());
+        }
+        else
+        {
+            map.put("error", "Invalid email or password");
+        }
+        return ResponseEntity.ok(gson.toJson(map));
+    }
 
-//    @PostMapping("/auth")
-//    public String test(){
-//        System.out.println("here");
-//        return "hello";
-//    }
 
 }
