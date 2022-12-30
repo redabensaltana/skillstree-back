@@ -18,33 +18,26 @@ public class ReferentialController {
     @Autowired
     private ReferentialService referentialService;
 
-    @PostMapping(value = "/referentials", produces = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<String> referentials(){
+    @GetMapping(value = "/referentials", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Map<String, List>> referentials(){
+        Map<String, List> res = new HashMap<>();
         Gson gson = new Gson();
-        HashMap<String, ArrayList<HashMap<String, String>>> map = new HashMap<>();
+
         List<Referential> referentials = referentialService.getAllReferentials();
 
-        if (referentials != null)
-        {
-            ArrayList<HashMap<String, String>> refs = new ArrayList<>();
-            for (Referential referential :
-                    referentials) {
-                HashMap<String, String> ref = new HashMap<>();
-                ref.put("id", String.valueOf(referential.getId()));
-                ref.put("name", referential.getName());
-                refs.add(ref);
-            }
-            map.put("referentials",refs);
+        if (referentials != null) {
+            referentials = referentials.stream().map(ref -> {
+                ref.getCompetences().forEach(c -> c.setReferential(null));
+                return ref;
+            }).toList();
+            res.put("referentials",referentials);
+            return ResponseEntity.ok(res);
         }
-        else
-        {
-            ArrayList<HashMap<String, String>> refs = new ArrayList<>();
             HashMap<String, String> error = new HashMap<>();
-            error.put("error", "no referentials found");
-            refs.add(error);
-            map.put("referentials",refs);
-        }
-        return ResponseEntity.ok(gson.toJson(map));
+            res.put("error", List.of("no referentials found"));
+
+        return ResponseEntity.status(400).body(res);
+
     }
 
 

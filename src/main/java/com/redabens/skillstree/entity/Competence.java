@@ -1,4 +1,5 @@
 package com.redabens.skillstree.entity;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 @Entity
@@ -18,15 +19,16 @@ public class Competence {
     @Column(name = "description")
     private String description;
 
-
-    @Basic
-    @Column(name = "referential_id", insertable = false, updatable = false)
-    private Long idReferential;
-
-
-    @OneToOne
-    @JoinColumn(name = "referential_id", referencedColumnName = "id")
+    @ManyToOne
     private Referential referential;
+
+    public Referential getReferential() {
+        return referential;
+    }
+
+    public void setReferential(Referential referential) {
+        this.referential = referential;
+    }
 
     public Long getId() {
         return id;
@@ -46,14 +48,6 @@ public class Competence {
 
     public String getDescription() {
         return description;
-    }
-
-    public Long getIdReferential() {
-        return idReferential;
-    }
-
-    public void setIdReferential(Long idReferential) {
-        this.idReferential = idReferential;
     }
 
     public void setDescription(String description) {

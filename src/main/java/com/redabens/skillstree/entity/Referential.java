@@ -1,6 +1,8 @@
 package com.redabens.skillstree.entity;
 import jakarta.persistence.*;
 
+import java.util.Collection;
+
 @Entity
 @Table(name = "referential", catalog = "skillstree")
 public class Referential {
@@ -28,5 +30,16 @@ public class Referential {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    @OneToMany(mappedBy = "referential")
+    private Collection<Competence> competences;
+
+    public Collection<Competence> getCompetences() {
+        return competences;
+    }
+
+    public void setCompetences(Collection<Competence> competences) {
+        this.competences = competences;
     }
 }
